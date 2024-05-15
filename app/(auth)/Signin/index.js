@@ -12,9 +12,9 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useDispatch, useSelector } from "react-redux";
 import AuthScreen from "../../../components/global/AuthScreen";
 import Button from "../../../components/global/Button";
@@ -22,15 +22,15 @@ import DismissKeyboardView from "../../../components/global/HideKeyboard";
 import { getRespValue } from "../../../design/desin";
 import { renderToastError, renderToastSuccess } from "../../../hooks/useToasty";
 import { useSigninMutation } from "../../../store/api/signinApi";
-import { selectUser } from '../../../store/selectors/userSelect';
-import { setAuthState } from '../../../store/slices/userSlice';
+import { selectUser } from "../../../store/selectors/userSelect";
+import { setAuthState } from "../../../store/slices/userSlice";
 export default function Signin() {
   const router = useRouter();
   const emailRef = useRef();
   const passwordRef = useRef();
-  const {accessToken}=useSelector(selectUser)
- const dispatch= useDispatch();
-console.log('signin Token',accessToken)
+  const { accessToken } = useSelector(selectUser);
+  const dispatch = useDispatch();
+  console.log("signin Token", accessToken);
   console.log("email:", emailRef.current);
   console.log("password:", passwordRef.current);
   const toast = useToast();
@@ -43,8 +43,8 @@ console.log('signin Token',accessToken)
         email: emailRef.current,
         password: passwordRef.current,
       }).unwrap();
-      console.log('res',res?.results?.token)
-      dispatch(setAuthState({accessTokens:res?.results?.token}))
+      console.log("res", res?.results?.token);
+      dispatch(setAuthState({ accessTokens: res?.results?.token }));
       router.replace("(main)/Home");
       renderToastSuccess(res?.message || "SignIn Successfully", toast);
     } catch (error) {
@@ -64,23 +64,22 @@ console.log('signin Token',accessToken)
     //login process
   };
   return (
-    <AuthScreen>
+    <AuthScreen title='SignIn' topColor='white'>
       {/* <ScrollView> */}
       <KeyboardAwareScrollView
-                          showsVerticalScrollIndicator={false}
-                          showsHorizontalScrollIndicator={false}
-                          contentContainerStyle={{
-                            flexGrow: 1,
-                            paddingBottom:Platform.OS==="ios"? getRespValue(90):20, 
-                          }}
-                          keyboardShouldPersistTaps="handled"
-                          automaticallyAdjustContentInsets={false}
-                          scrollEnabled={false}
-                          // enableAutomaticScroll
-                          extraHeight={getRespValue(150)}
-                        >
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          // flexGrow: 1,
+          paddingBottom: Platform.OS === "ios" ? getRespValue(40) : 20,
+        }}
+        keyboardShouldPersistTaps="handled"
+        automaticallyAdjustContentInsets={false}
+        scrollEnabled
+        enableAutomaticScroll
+        extraHeight={Platform.OS==="os"?getRespValue(80):getRespValue(100)}
+      >
         <View style={{ paddingTop: 20, flex: 1 }}>
-      
           <StatusBar style="dark" />
           <DismissKeyboardView>
             <View style={{ flex: 1, gap: 12, alignItems: "center" }}>
@@ -134,9 +133,8 @@ console.log('signin Token',accessToken)
               <Button buttonType="back" onPress={() => router.replace("/")} />
             </View>
           </DismissKeyboardView>
-      
         </View>
-        </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
       {/* </ScrollView> */}
     </AuthScreen>
   );
@@ -162,8 +160,9 @@ export const styles = StyleSheet.create({
   signInTxt: {
     alignSelf: "center",
     marginTop: getRespValue(30),
-    fontSize: getRespValue(32),
-    fontWeight: "600",
+      fontSize: 32, 
+      fontWeight: 'bold', 
+      color: 'orange', 
   },
   forgotTxt: {
     color: "grey",

@@ -73,7 +73,7 @@ export interface IUserState {
   data: IUserData | null;
   uploadData: IUserData | null;
   accessToken: '';
-
+soundPause:boolean;
   email: string | null;
   codeCountry: string;
   phoneNumber: string;

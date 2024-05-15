@@ -1,34 +1,52 @@
-import React, { useEffect, useState } from 'react';
-
 import { Ionicons } from '@expo/vector-icons';
 import Slider from '@react-native-community/slider';
 import { Audio } from 'expo-av';
-import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import AuthScreen from '../../global/AuthScreen';
-const tracks =[{
-  id:1,
-  Url: require('../../../assets/Sound/Humnava.mp3'),
-  // url:'https://www.youtube.com/watch?v=2at5ac3Po9g',
-  title: 'Humnava',
-  artist: 'Humnava',
-  artwork: require('../../../assets/SoundImages/humnava.jpeg')
-},
-{
-  id:2,
-  Url: require('../../../assets/Sound/Pehli.mp3'),
-  title: 'Pehli',
-  artist: 'Pehli',
-  artwork: require('../../../assets/SoundImages/pehli.jpeg'),
-  
-},
-{
-  id:3,
-  Url: require('../../../assets/Sound/Arijit.mp3'),
-  title: 'Arijit',
-  artist: 'Arijit',
-  artwork: require('../../../assets/SoundImages/arijit.jpeg')
-  
-}
+import React, { useEffect, useState } from 'react';
+import { ImageBackground, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+const tracks = [
+  {
+    id: 1,
+    Url: require('../../../assets/Sound/Humnava.mp3'),
+    title: 'Humnava',
+    artist: 'Humnava',
+    artwork: require('../../../assets/SoundImages/humnava.jpeg')
+  },
+  {
+    id: 2,
+    Url: require('../../../assets/Sound/Pehli.mp3'),
+    title: 'Pehli',
+    artist: 'Pehli',
+    artwork: require('../../../assets/SoundImages/pehli.jpeg')
+  },
+  {
+    id: 3,
+    Url: require('../../../assets/Sound/Arijit.mp3'),
+    title: 'Arijit',
+    artist: 'Arijit',
+    artwork: require('../../../assets/SoundImages/arijit.jpeg')
+  },
+  // {
+  //   id: 4,
+  //   Url: require('../../../assets/Sound/Moosewala.mp3'),
+  //   title: 'Legend',
+  //   artist: 'Moosewala',
+  //   artwork: require('../../../assets/SoundImages/legend.jpg')
+  // },
+  {
+    id: 4,
+    Url: require('../../../assets/Sound/12Saal.mp3'),
+    title: '12 Saal',
+    artist: 'Bilal Saeed',
+    artwork: require('../../../assets/SoundImages/12Saal.jpg')
+  },
+  {
+    id: 5,
+    Url: require('../../../assets/Sound/bilalSaeed.mp3'),
+    title: 'Uchiyan Dewaran',
+    artist: 'Bilal Saeed',
+    artwork: require('../../../assets/SoundImages/uchiyan.jpg')
+  },
 ];
 
 const Step1_Audio = () => {
@@ -37,19 +55,20 @@ const Step1_Audio = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [position, setPosition] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [loading, setLoading] = useState(false); // Added loading state
+  const [loading, setLoading] = useState(false);
+  const [isPlaylistVisible, setIsPlaylistVisible] = useState(false);
 
   useEffect(() => {
     const loadAudio = async () => {
-      setLoading(true); // Set loading state to true when loading audio
+      setLoading(true);
       if (sound) {
         await sound.unloadAsync();
       }
       const { sound: newSound } = await Audio.Sound.createAsync(tracks[currentTrackIndex].Url, {}, updatePlaybackStatus);
-      setLoading(false); 
+      setLoading(false);
       setSound(newSound);
       setIsPlaying(false);
-     // Set loading state to false when audio loading is complete
+      
     };
     loadAudio();
     return () => {
@@ -96,52 +115,80 @@ const Step1_Audio = () => {
     }
   };
 
+  const selectTrack = (index) => {
+    setCurrentTrackIndex(index);
+    setIsPlaylistVisible(false);
+  };
+
   return (
-    <AuthScreen>
-    <ImageBackground source={tracks[currentTrackIndex].artwork} style={styles.backgroundImage}>
-      <View style={styles.container}>
-        <Text style={styles.title}>{tracks[currentTrackIndex].title}</Text>
-        <Text style={styles.artist}>{tracks[currentTrackIndex].artist}</Text>
-        <Slider
-          style={styles.slider}
-          minimumValue={0}
-          maximumValue={duration}
-          value={position}
-          onSlidingComplete={handleSliderChange}
-          minimumTrackTintColor="#FFFFFF"
-          maximumTrackTintColor="#000000"
-        />
-        <View style={styles.controls}>
-          <TouchableOpacity onPress={playPreviousTrack} disabled={loading}>
-            <Ionicons name="caret-back-circle" size={48} color="white" />
-          </TouchableOpacity>
-          {loading ? (
-            <Ionicons name="refresh-circle" size={64} color="white" /> // Placeholder icon when loading
-          ) : isPlaying ? (
-            <TouchableOpacity onPress={pauseSound}>
-              <Ionicons name="pause-circle-sharp" size={64} color="white" />
+    <>
+      <ImageBackground resizeMode='repeat' source={tracks[currentTrackIndex].artwork} style={styles.backgroundImage}>
+        <View style={styles.container}>
+          <Text style={styles.title}>{tracks[currentTrackIndex].title}</Text>
+          <Text style={styles.artist}>{tracks[currentTrackIndex].artist}</Text>
+          <Slider
+            style={styles.slider}
+            minimumValue={0}
+            maximumValue={duration}
+            value={position}
+            onSlidingComplete={handleSliderChange}
+            minimumTrackTintColor="#FFFFFF"
+            maximumTrackTintColor="#000000"
+            disabled={loading}
+          />
+          <View style={styles.controls}>
+            <TouchableOpacity onPress={playPreviousTrack} disabled={loading}>
+              <Ionicons name="caret-back-circle" size={48} color="white" />
             </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={playSound}>
-              <Ionicons name="play-back-circle" size={64} color="white" />
+            {loading ? (
+              <Ionicons name="refresh-circle" size={64} color="white" />
+            ) : isPlaying ? (
+              <TouchableOpacity onPress={pauseSound}>
+                <Ionicons name="pause-circle-sharp" size={64} color="white" />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={playSound}>
+                <Ionicons name="play-back-circle" size={64} color="white" />
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity onPress={playNextTrack} disabled={loading} >
+              <Ionicons name="caret-forward-circle" size={48} color="white" />
             </TouchableOpacity>
-          )}
-          <TouchableOpacity onPress={playNextTrack} disabled={loading}>
-            <Ionicons name="caret-forward-circle" size={48} color="white" />
-          </TouchableOpacity>
+            <TouchableOpacity onPress={() => setIsPlaylistVisible(true)} disabled={loading} >
+              <Ionicons name="add-circle-sharp" size={32} color={loading?'grey':'white'}  />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </ImageBackground>
-  </AuthScreen>
+      </ImageBackground>
+      <Modal
+        visible={isPlaylistVisible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setIsPlaylistVisible(false)}
+      >
+        <View style={styles.playlistContainer}>
+          <TouchableOpacity onPress={() => setIsPlaylistVisible(false)} style={styles.closeButton} >
+            <Ionicons name="close-circle" size={32} color="white" />
+          </TouchableOpacity>
+          {tracks.map((track, index) => (
+            <TouchableOpacity key={track.id} onPress={() => selectTrack(index)} style={[styles.playlistItem, index === currentTrackIndex && styles.currentTrack]}>
+              <Text style={{ color: 'white' ,fontSize:22}}>{track.title}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </Modal>
+    </>
   );
 };
-export default Step1_Audio
+
+export default Step1_Audio;
+
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center",
-    marginTop:-8
+    marginTop: -8
   },
   container: {
     flex: 1,
@@ -169,5 +216,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  playlistContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.8)',
+    paddingTop: 50,
+  },
+  playlistItem: {
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: 'white',
+    width: '100%',
+    alignItems: 'center',
+  },
+  currentTrack: {
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 20,
+    right: 20,
   },
 });

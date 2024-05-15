@@ -4,9 +4,9 @@ import AuthScreen from '../../global/AuthScreen'
 
 const Step1_ChatBot = () => {
   return (
-    <AuthScreen>
-    <View>
-      <Text>Step1_ChatBot</Text>
+    <AuthScreen title='ChatBot'>
+    <View style={{flex:1,justifyContent:'center'}}>
+      <Text style={{fontSize:30,fontWeight:'700',textAlign:'center',color:'orange',}}>ChatBot</Text>
     </View>
     </AuthScreen>
   )

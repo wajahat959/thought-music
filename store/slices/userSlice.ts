@@ -26,6 +26,7 @@ const initialState: IUserState = {
     date:'',
     },
   currentData: null,
+  soundPause:false,
 };
 
 // Actual Slice
@@ -43,6 +44,9 @@ export const userSlice = createSlice({
       state.accessToken = action.payload.accessToken;
       state.email = action.payload.email;
       // state.phone = action.payload.phone;
+    },
+    setSoundPause:(state,action)=>{
+      state.soundPause=action.payload
     },
 
     setAuthState(state, action) {
@@ -120,6 +124,7 @@ export const {
   userResetCountry,
   signupPhone,
   resetPhoneNumber,
+  setSoundPause,
 
   // setChangeRoute,
   // setHideAuthModal,

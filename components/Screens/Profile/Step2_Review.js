@@ -4,9 +4,10 @@ import { useRouter } from 'expo-router';
 import { useToast } from 'native-base';
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { renderToastError, renderToastSuccess } from '../../../hooks/useToasty';
 import { useSelfassessmentMutation } from '../../../store/api/mainApi';
+import { selectUser } from '../../../store/selectors/userSelect';
 import { setAverageRating } from '../../../store/slices/userSlice';
 const Step2_Review= ({goTo}) => {
   const today = new Date();
@@ -21,7 +22,7 @@ const formattedDate = `${today.getFullYear()}-${String(today.getMonth() + 1).pad
     goTo(0)
   }
   const [rating, setRating] = useState(0); // Initial rating value
-
+  const { accessToken, currentData } = useSelector(selectUser); 
   const handleStarPress = (value) => {
     setRating(value);
   };
@@ -41,6 +42,7 @@ const [selfassessment]= useSelfassessmentMutation();
         date: formattedDate,
         rating: rating,
       }).unwrap();
+     
      dispatch(setAverageRating({data:res?.results}))
      goTo && goTo(3)
      console.log(res?.results)
@@ -51,7 +53,7 @@ const [selfassessment]= useSelfassessmentMutation();
     }
   };
   return (
-    <AuthScreen>
+    <AuthScreen title='Self Review'>
         <Text style={{
         alignSelf:'center',
         marginBottom:50,

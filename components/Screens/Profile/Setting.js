@@ -14,7 +14,7 @@ dispatch(setLogout());
         router.replace('/')
       }
   return (
-    <AuthScreen>
+    <AuthScreen title='Setting'>
         <View style={{flex:1,marginTop:50,alignItems:'center'}}>
      <View style={{margin:10}}>
    <Button buttonType='simple' onPress={()=> goTo(1)}>Profile</Button>
@@ -23,8 +23,12 @@ dispatch(setLogout());
    <Button buttonType='simple' onPress={()=> goTo(2)}>Review</Button>
     </View>
     <View style={{margin:10}}>
+   <Button buttonType='simple' onPress={()=>goTo(4) }>SelfAssessment</Button>
+    </View>
+    <View style={{margin:10}}>
    <Button buttonType='simple' onPress={()=>handleLogout() }>Logout</Button>
     </View>
+   
     </View>
     </AuthScreen>
   )

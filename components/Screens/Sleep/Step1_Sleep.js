@@ -8,7 +8,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 
 const Step1_Sleep  = () => {
   return (
-    <AuthScreen>
+    <AuthScreen title='Sleep'>
       <View style={styles.container}>
         {/* Circular Button 1 */}
        
