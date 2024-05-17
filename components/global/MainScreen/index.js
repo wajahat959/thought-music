@@ -14,7 +14,7 @@ import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 
-const ScreenAuth = (props) => {
+const ScreenMain = (props) => {
   const {
     scroll,
     title,
@@ -68,9 +68,10 @@ const ScreenAuth = (props) => {
           <View
             style={{
               paddingHorizontal: getRespValue(20),
-              paddingTop: getRespValue(40),
-           
-              backgroundColor: "#171938",
+              paddingTop: getRespValue(50),
+              borderBottomLeftRadius: getRespValue(18),
+              borderBottomRightRadius: getRespValue(18),
+              backgroundColor: "#1371D3",
             }}
           >
             <Text
@@ -78,10 +79,8 @@ const ScreenAuth = (props) => {
                 fontSize: 25,
                 justifyContent: "center",
                 textAlign: "center",
-
-                marginBottom: 10,
-                margin: 20,
-
+                marginBottom: getRespValue(130),
+                // margin: 20,
                 fontWeight: "700",
                 color: "white",
               }}
@@ -96,7 +95,7 @@ const ScreenAuth = (props) => {
   );
 };
 
-ScreenAuth.defaultProps = {
+ScreenMain.defaultProps = {
   scroll: false,
   topColor: "#000",
   bottomColor: "#000",
@@ -112,4 +111,4 @@ ScreenAuth.defaultProps = {
   onPress: () => null,
 };
 
-export default ScreenAuth;
+export default ScreenMain;

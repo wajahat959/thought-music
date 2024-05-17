@@ -18,18 +18,6 @@ export const signinApi = createApi({
   }),
 
   endpoints: builder => ({
-    ForgetPasswordEmail : builder.mutation({
-      query: body => {
-        console.log('the api', body);
-        return {
-          url: '/auth/forgetpassword',
-          method: 'POST',
-          body
-        };
-      },
-    }), 
-   
-
     signin: builder.mutation({
       query: ({ email,password }) => ({
         url: '/auth/signin',
@@ -44,30 +32,11 @@ export const signinApi = createApi({
         }
       },
     }),
-
-    verifySigninOtp: builder.mutation({
-      query: ({ otp, otpTypes, email, password }) => ({
-        url: '/auth/verifySigninOtp',
-        method: 'POST',
-        body: { otp, otpTypes, email, password },
-      }),
-      async onQueryStarted(_, { queryFulfilled }) {
-        try {
-          await queryFulfilled;
-        } catch (e) {
-          console.log('query errorr', e);
-        }
-      },
-    }),
-
   
   }),
 });
 
 export const {
   useSigninMutation,
-
-  useForgetPasswordEmailMutation,
-
   
 } = signinApi;

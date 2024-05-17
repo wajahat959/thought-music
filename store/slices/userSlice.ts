@@ -62,30 +62,11 @@ export const userSlice = createSlice({
       state.error = null;
       state.email = '';
       state.phoneNumber = '';
-      state.loading = false;
-     
+      state.loading = false; 
       state.currentData = null;
     },
-    // setShowAuthModal(state) {
-    //   state.authModal = true;
-    // },
-    // setHideAuthModal(state) {
-    //   state.authModal = false;
-    // },
-    userSetCountry: (state, action) => {
-      state.setCountry = action.payload.setCountry;
-      state.codeCountry = action.payload.codeCountry;
-      console.log('redux country data', state.setCountry);
-    },
-    userResetCountry: state => {
-      state.setCountry = '';
-    },
-    signupPhone: (state, action) => {
-      state.signUpPhone = action.payload.signupPhone;
-    },
-    resetPhoneNumber: state => {
-      state.signUpPhone = '';
-    },
+  
+   
   },
   extraReducers(builder) {
     builder.addMatcher(
@@ -120,15 +101,7 @@ export const {
   userSignup,
   setAuthState,
   setLogout,
-  userSetCountry,
-  userResetCountry,
-  signupPhone,
-  resetPhoneNumber,
   setSoundPause,
-
-  // setChangeRoute,
-  // setHideAuthModal,
-  // setShowAuthModal,
 } = userSlice.actions;
 
 export const selectUserState = (state: RootState) => state.user;

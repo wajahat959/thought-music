@@ -83,7 +83,7 @@ const Button = (props) => {
         style={{
           ...styles.login,
           ...buttonStyles,
-          backgroundColor: isPressed ? "grey" : "#007BFF",
+          backgroundColor: isPressed ? "grey" : "#B6A2CF",
         }}
       >
         {loading ? (
@@ -112,7 +112,7 @@ const Button = (props) => {
             <Text
               ellipsizeMode="tail"
               numberOfLines={1}
-              style={{ color: "white", opacity: disabled ? 10 : 5 }}
+              style={{ color: "black", opacity: disabled ? 10 : 5 }}
             >
               {children}
             </Text>
@@ -153,7 +153,7 @@ const Button = (props) => {
           <Text
             style={{
               fontSize: getRespValue(24),
-              color: "#A41328",
+              color: "red",
             }}
           >
             Back

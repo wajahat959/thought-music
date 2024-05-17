@@ -1,52 +1,160 @@
-import { useEffect, useRef } from "react";
-import { View } from "react-native";
-import SelfAssessment from "../../../components/Screens/Profile/SelfAssessment";
-import Setting from "../../../components/Screens/Profile/Setting";
-import ShowReviewRating from "../../../components/Screens/Profile/ShowReviewRating";
-import Step1_Profile from "../../../components/Screens/Profile/Step1_Profile";
-import Step2_Review from "../../../components/Screens/Profile/Step2_Review";
-import useMultistepForm from "../../../hooks/useMultiStepForm";
+import Header from "@/components/global/Header/index";
+import { getRespValue } from "@/design/desin";
+import { selectUser } from "@/store/selectors/userSelect";
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import React, { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { useSelector } from "react-redux";
+import Background from "../../../components/global/ImageBackground";
+const Index = ({ goTo }) => {
+  const router = useRouter();
+  const [pressed, setPressed] = useState(false);
+  const { currentData } = useSelector(selectUser);
+  const handlePressIn = () => {
+    setPressed(true);
+  };
 
-const Profile = ({ navigation }) => {
-  useEffect(() => {
-    let timer;
+  const handlePressOut = () => {
+    setPressed(false);
+  };
+  const [isPlaylistVisible, setIsPlaylistVisible] = useState(false);
 
-    const handleTabPress = () => {
-      if (doublePressRef.current) {
-        if (goTo) goTo(0);
-        doublePressRef.current = false;
-      } else {
-        doublePressRef.current = true;
-        timer = setTimeout(() => {
-          doublePressRef.current = false;
-        }, 300); // Adjust the time frame for double press as needed (300 milliseconds here)
-      }
-    };
+  const onClose = (index) => {
+    setIsPlaylistVisible(false);
+  };
+  const onOpen = (index) => {
+    setIsPlaylistVisible(true);
+  };
+  const firstName = currentData?.results?.user?.firstName ?? "";
+  const lastName = currentData?.results?.user?.lastName ?? "";
 
-    const unsubscribe = navigation.addListener("tabPress", handleTabPress);
-
-    return () => {
-      clearTimeout(timer);
-      unsubscribe();
-    };
-  }, [goTo, navigation]);
-  const { step, goTo } = useMultistepForm([
-    <Setting />,//0
-    <Step1_Profile />,//1
-    <Step2_Review />,//2
-    <ShowReviewRating />,//3
-    <SelfAssessment />,//4
-  ]);
-  // useEffect(() => {
-  //   const unsubscribe = navigation.addListener('tabPress', () => {
-  //     if (goTo) goTo(0);
-  //   });
-
-  //   return unsubscribe;
-  // }, [goTo, navigation]);
-  const doublePressRef = useRef(false);
-
-  return <View style={{ flex: 1 }}>{step}</View>;
+  return (
+    <Header>
+      <Background>
+        <View style={styles.modalContainer}>
+          <View>
+            <Ionicons name="person-circle-sharp" size={150} color="white" />
+          </View>
+          <View>
+            <Text
+              style={{
+                color: "white",
+                fontSize: getRespValue(35),
+              }}
+            >
+              {currentData?.results?.user?.firstName}{" "}
+              {currentData?.results?.user?.lastName}
+            </Text>
+          </View>
+          <View style={styles.card}>
+            {/* Name */}
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text style={styles.textInput}>FirstName:</Text>
+              <Text numberOfLines={1} style={styles.text}>
+                {firstName}
+              </Text>
+            </View>
+            {/* lastName */}
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text style={styles.textInput}>LastName:</Text>
+              <Text numberOfLines={1} style={styles.text}>
+                {lastName}
+              </Text>
+            </View>
+            {/* Email */}
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                flex: 1,
+              }}
+            >
+              <Text style={styles.textInput}>Email:</Text>
+              <Text numberOfLines={1} style={styles.text}>
+                {currentData?.results?.user?.email}
+              </Text>
+            </View>
+          </View>
+        </View>
+      </Background>
+    </Header>
+  );
 };
 
-export default Profile;
+export default Index;
+
+const styles = StyleSheet.create({
+  textInput: {
+    margin: 10,
+    fontSize: 18,
+
+    fontWeight: "600",
+    color: "white",
+    fontVariant: "italic",
+  },
+  text: {
+    margin: 10,
+    fontSize: 18,
+    fontWeight: "500",
+    color: "white",
+  },
+  container: {
+    flex: 1,
+    alignItems: "center",
+  },
+  modalContainer: {
+    flex: 1,
+    alignItems: "center",
+  },
+  title: {
+    fontSize: 24,
+    marginBottom: 20,
+    fontWeight: "bold",
+    color: "#333", // Dark gray text color
+  },
+  buttonContainer: {
+    borderWidth: 2,
+    borderColor: "#007bff", // Blue border color
+    width: "60%",
+    borderRadius: 20,
+    overflow: "hidden", // Ensure border radius works
+    alignItems: "center", // Center the child horizontally
+  },
+  closeButton: {
+    position: "absolute",
+    top: 20,
+    right: 20,
+  },
+  card: {
+    alignSelf: "center",
+    justifyContent: "space-between",
+    backgroundColor: "#2D2A70",
+    opacity: 0.5,
+    borderRadius: 40,
+    borderColor: "grey",
+    borderWidth: 1,
+    padding: 20,
+    width: "85%", // Adjust width as needed
+    shadowColor: "white",
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5, // For iOS
+    marginTop: 20,
+    height: "40%",
+    // flex:1,
+    // flexDirection: "row",
+    marginBottom: 10,
+  },
+  buttonText: {
+    paddingVertical: 15,
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#007bff", // Blue text color
+  },
+});

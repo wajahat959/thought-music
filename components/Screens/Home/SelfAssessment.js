@@ -1,6 +1,7 @@
+import Header from '@/components/global/Header';
+import Background from '@/components/global/ImageBackground';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import AuthScreen from '../../global/AuthScreen';
 import Button from '../../global/Button';
 
 const SelfAssessment = () => {
@@ -48,9 +49,8 @@ const SelfAssessment = () => {
   };
 
   return (
-    <AuthScreen
-    title='Self Assessment'
-    >
+  <Header>
+     <Background>
       <ScrollView>
         <View style={styles.container}>
           <Text style={styles.header}>GAD-7 Anxiety</Text>
@@ -93,19 +93,20 @@ const SelfAssessment = () => {
           </Button>
         </View>
       </ScrollView>
-    </AuthScreen>
+     </Background>
+      </Header>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    marginBottom: 50,
+    marginBottom: 120,
   },
   card: {
     alignSelf: "center",
     justifyContent:'space-between',
-    backgroundColor: "#EFE1E6",
+    backgroundColor: "#B6A2CF",
     borderRadius: 10,
     padding: 20,
     width: "85%", // Adjust width as needed
@@ -123,6 +124,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
+    color:'white'
   },
   questionContainer: {
     marginBottom: 20,
@@ -147,18 +149,19 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 30,
+   backgroundColor:'#B6A2CF'
   },
   averageText: {
     fontSize: 16,
     fontWeight: 'bold',
     marginTop: 20,
-    color:'#1371D3'
+    color:'white'
   },
   result: {
     fontSize: 16,
     fontWeight: 'bold',
     marginTop: 20,
-    color:'red'
+    color:'#fdc500'
   },
 });
 

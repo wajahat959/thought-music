@@ -5,8 +5,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import Config from '../../constants/Config';
 import { IAPIError, IPayeeState } from '../types/userData';
 import {
-  handleLogout,
-  onMutationErrorHandler
+  handleLogout
 } from '../utils/errorHandler';
 import { userData } from './userData';
 
@@ -27,16 +26,6 @@ export const mainApi = createApi({
   }),
   // tagTypes: ['getCountry'],
   endpoints: builder => ({
-  
-    getCountries: builder.mutation({
-      query: () => ({
-        url: '/remitOne/getCountries',
-        method: 'GET',
-      }),
-      onQueryStarted: onMutationErrorHandler,
-      // invalidatesTags: ['getCountry'],
-    }),
- 
     selfassessment: builder.mutation({
       query: ({
     date,rating
@@ -64,10 +53,7 @@ export const mainApi = createApi({
   }),
 });
 
-export const {
-  
-  useGetCountriesMutation,
-  
+export const { 
 useSelfassessmentMutation,
 
 } = mainApi;

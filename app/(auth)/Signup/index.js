@@ -1,6 +1,7 @@
 import { Octicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { useToast } from "native-base";
 import React, { useRef } from "react";
 import {
   Alert,
@@ -14,15 +15,15 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import AuthScreen from "../../../components/global/AuthScreen";
-import DismissKeyboardView from "../../../components/global/HideKeyboard";
-
-import { useToast } from "native-base";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useDispatch } from "react-redux";
+import AuthScreen from "../../../components/global/AuthScreen";
 import Button from "../../../components/global/Button";
+import Background from "../../../components/global/ImageBackground";
 import { getRespValue } from "../../../design/desin";
 import { renderToastError, renderToastSuccess } from "../../../hooks/useToasty";
 import { useSignupMutation } from "../../../store/api/signupApi";
+import { setAuthState } from "../../../store/slices/userSlice";
 
 export default function Signup() {
   const FirstnameRef = useRef();
@@ -31,7 +32,7 @@ export default function Signup() {
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
   const LastnameRef = useRef();
-
+const dispatch=useDispatch();
   const toast = useToast();
   const [signup, { isLoading }] = useSignupMutation();
   const handleUpload = async () => {
@@ -45,6 +46,7 @@ export default function Signup() {
         confirmPassword: confirmPasswordRef.current,
       }).unwrap();
       router.replace("(main)/Home");
+      dispatch(setAuthState({ accessTokens: res?.results?.token }));
       renderToastSuccess(res?.message || "SignUp Successfully", toast);
     } catch (error) {
       console.log("Signup error", error);
@@ -66,9 +68,11 @@ export default function Signup() {
     handleUpload();
   };
   return (
-    <AuthScreen title="Signup" topColor="white">
-      <ScrollView>
-        <View style={{ paddingTop: 20, flex: 1, marginBottom: 50 }}>
+    <AuthScreen title="Sign-Up" topColor="white">
+      <Background>
+      <ScrollView showsHorizontalScrollIndicator={false}
+      showsVerticalScrollIndicator={false} >
+        <View style={{ paddingTop: 20, flex: 1, marginBottom: 10 }}>
           <KeyboardAwareScrollView
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
@@ -83,14 +87,14 @@ export default function Signup() {
             extraHeight={getRespValue(150)}
           >
             <StatusBar style="dark" />
-            <DismissKeyboardView>
+            {/* <DismissKeyboardView> */}
               <View style={{ flex: 1, gap: 12, alignItems: "center" }}>
                 <View style={{ alignItems: "center" }}>
                   <Image
                     source={require("../../../assets/images/login.png")}
                     style={styles.Logo}
                   />
-                  <Text style={styles.signInTxt}>Sign Up</Text>
+                  <Text style={styles.signInTxt}>Signup</Text>
                 </View>
                 <View style={styles.text}>
                   <Octicons
@@ -163,17 +167,18 @@ export default function Signup() {
                     Already have an account?{" "}
                   </Text>
                   <TouchableOpacity onPress={() => router.replace("Signin")}>
-                    <Text style={{ color: "#36318D", fontSize: 12 }}>
+                    <Text style={{ color: "orange", fontSize: 12 }}>
                       Sign In
                     </Text>
                   </TouchableOpacity>
                 </View>
                 <Button buttonType="back" onPress={() => router.replace("/")} />
               </View>
-            </DismissKeyboardView>
+            {/* </DismissKeyboardView> */}
           </KeyboardAwareScrollView>
         </View>
       </ScrollView>
+      </Background>
     </AuthScreen>
   );
 }
@@ -194,11 +199,12 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: "grey",
     padding: 10,
+    marginBottom:getRespValue(10)
   },
   signInTxt: {
     alignSelf: "center",
     marginTop: getRespValue(30),
-      fontSize: 32, 
+      fontSize: getRespValue(30), 
       fontWeight: 'bold', 
       color: 'orange',
   },

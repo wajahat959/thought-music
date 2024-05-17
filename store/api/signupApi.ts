@@ -4,8 +4,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import Config from '../../constants/Config';
 import { IAPIError, IUserState } from '../types/userData';
 import {
-  handleLogout,
-  onMutationErrorHandler,
+  handleLogout
 } from '../utils/errorHandler';
 import { userData } from './userData';
 
@@ -54,28 +53,12 @@ export const signupApi = createApi({
           // do nothing
         }
       },
-    }),
-    sendEmailOtp: builder.mutation({
-      query: ({ email }) => ({
-        url: '/auth/sendEmailOtp',
-        method: 'POST',
-        body: { email },
-      }),
-      onQueryStarted: onMutationErrorHandler,
-    }),
-   
-    deleteUser: builder.mutation({
-      query: () => ({
-        url: '/auth/deleteUser',
-        method: 'DELETE',
-      }),
-      onQueryStarted: onMutationErrorHandler,
-    }),
+    }),  
   }),
 });
 
 export const {
   useSignupMutation,
-  useSendEmailOtpMutation,
-  useDeleteUserMutation,
+ 
+ 
 } = signupApi;

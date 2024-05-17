@@ -39,7 +39,8 @@ export const handleLogout = async (
   const error = data?.error?.data || data?.error || data?.data || data;
   if (
     error.message === 'Session Expired' ||
-    error.message === 'Login Session Expired'
+    error.message === 'Login Session Expired'||
+    error.message === 'Jwt expired'
   ) {
     if (isTimeExpired()) {
       renderToastError(error?.message, null);

@@ -1,14 +1,16 @@
 import React from 'react'
 import { Text, View } from 'react-native'
-import AuthScreen from '../../global/AuthScreen'
-
+import Header from '../../global/Header/index'
+import Background from '../../global/ImageBackground/index'
 const Step1_ChatBot = () => {
   return (
-    <AuthScreen title='ChatBot'>
+    <Header title='ChatBot'>
+      <Background >
     <View style={{flex:1,justifyContent:'center'}}>
-      <Text style={{fontSize:30,fontWeight:'700',textAlign:'center',color:'orange',}}>ChatBot</Text>
+      <Text style={{fontSize:30,fontWeight:'700',textAlign:'center',color:'white',}}>ChatBot</Text>
     </View>
-    </AuthScreen>
+    </Background>
+    </Header>
   )
 }
 

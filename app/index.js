@@ -1,7 +1,8 @@
 import { Redirect, useRouter } from "expo-router";
 import React from "react";
-import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
+import Background from "../components/global/ImageBackground";
 import { selectUser } from "../store/selectors/userSelect";
 const Home1 = () => {
   const router = useRouter();
@@ -11,13 +12,10 @@ if(accessToken){
   return(<Redirect href="(main)/Home" />)
 }
   return (
-    <ImageBackground
-      source={require("../assets/images/background.jpeg")}
-      style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-    >
-      <View style={{ alignItems: "center", paddingHorizontal: 20 }}>
+   <Background>
+      <View style={{ alignItems: "center", paddingHorizontal: 20,flex:1,justifyContent:'center' }}>
         <Text style={{ fontSize: 28, marginBottom: 20, color: "white", fontWeight: "bold" }}>
-          Welcome to Your App
+          Welcome
         </Text>
         <TouchableOpacity
           onPress={() => router.replace("/(auth)/Signin")}
@@ -55,7 +53,7 @@ if(accessToken){
           <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>Continue</Text>
         </TouchableOpacity> */}
       </View>
-    </ImageBackground>
+  </Background>
   );
 };
 

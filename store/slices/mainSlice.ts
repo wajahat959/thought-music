@@ -18,9 +18,7 @@ export const mainSlice = createSlice({
   initialState,
   reducers: {
   
-    pyeeSelectBank: (state, action) => {
-      state.selectedBank = action.payload.selectedBank;
-    },
+
     payeeBeneficiaryDetails: (state, action) => {
       state.data = action.payload.data;
       console.log('REDUX_GetBenificiary Data', state.data);
@@ -33,7 +31,7 @@ export const mainSlice = createSlice({
 export const {
 
   payeeBeneficiaryDetails,
-  pyeeSelectBank,
+
 
 } = mainSlice.actions;
 

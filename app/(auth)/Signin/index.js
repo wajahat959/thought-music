@@ -18,7 +18,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { useDispatch, useSelector } from "react-redux";
 import AuthScreen from "../../../components/global/AuthScreen";
 import Button from "../../../components/global/Button";
-import DismissKeyboardView from "../../../components/global/HideKeyboard";
+import Background from "../../../components/global/ImageBackground";
 import { getRespValue } from "../../../design/desin";
 import { renderToastError, renderToastSuccess } from "../../../hooks/useToasty";
 import { useSigninMutation } from "../../../store/api/signinApi";
@@ -64,7 +64,8 @@ export default function Signin() {
     //login process
   };
   return (
-    <AuthScreen title='SignIn' topColor='white'>
+    <AuthScreen title='Sign-In' topColor='white'>
+      <Background>
       {/* <ScrollView> */}
       <KeyboardAwareScrollView
         showsVerticalScrollIndicator={false}
@@ -81,14 +82,14 @@ export default function Signin() {
       >
         <View style={{ paddingTop: 20, flex: 1 }}>
           <StatusBar style="dark" />
-          <DismissKeyboardView>
+          {/* <DismissKeyboardView> */}
             <View style={{ flex: 1, gap: 12, alignItems: "center" }}>
               <View style={{ alignItems: "center" }}>
                 <Image
                   source={require("../../../assets/images/login.png")}
                   style={styles.Logo}
                 />
-                <Text style={styles.signInTxt}>Sign In</Text>
+                <Text style={styles.signInTxt}>Signin</Text>
               </View>
               <View style={styles.text}>
                 <Octicons name="mail" size={getRespValue(30)} color="grey" />
@@ -125,17 +126,18 @@ export default function Signin() {
               <View style={{ flexDirection: "row", marginBottom: 10 }}>
                 <Text style={styles.forgotTxt}>Don't ave an account? </Text>
                 <TouchableOpacity onPress={() => router.replace("Signup")}>
-                  <Text style={{ color: "#36318D", fontSize: 12 }}>
+                  <Text style={{ color: "orange", fontSize: 12 }}>
                     Sign Up
                   </Text>
                 </TouchableOpacity>
               </View>
               <Button buttonType="back" onPress={() => router.replace("/")} />
             </View>
-          </DismissKeyboardView>
+          {/* </DismissKeyboardView> */}
         </View>
       </KeyboardAwareScrollView>
       {/* </ScrollView> */}
+      </Background>
     </AuthScreen>
   );
 }
@@ -144,8 +146,8 @@ export const styles = StyleSheet.create({
     width: "75%",
   },
   Logo: {
-    width: getRespValue(450),
-    height: getRespValue(350),
+    width: getRespValue(400),
+    height: getRespValue(300),
   },
   text: {
     gap: getRespValue(25),
@@ -156,11 +158,12 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: "grey",
     padding: 10,
+    marginBottom:10
   },
   signInTxt: {
     alignSelf: "center",
     marginTop: getRespValue(30),
-      fontSize: 32, 
+      fontSize: getRespValue(30), 
       fontWeight: 'bold', 
       color: 'orange', 
   },
