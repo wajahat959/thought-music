@@ -1,5 +1,8 @@
 
 import Articles from '@/components/Screens/Home/Articles';
+import Articles2 from '@/components/Screens/Home/Articles2';
+import Articles3 from '@/components/Screens/Home/Articles3';
+import Articles4 from '@/components/Screens/Home/Articles4';
 import SelfAssessment from '@/components/Screens/Home/SelfAssessment';
 import Step2_Review from '@/components/Screens/Home/Step2_Review';
 import { setSoundPause } from '@/store/slices/userSlice';
@@ -8,6 +11,7 @@ import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import Home from '../../../components/Screens/Home/Home';
 import useMultistepForm from '../../../hooks/useMultiStepForm';
+
 const HomeM = ({navigation}) => {
   
 const dispatch=useDispatch();
@@ -17,7 +21,11 @@ const dispatch=useDispatch();
   <Home />,
   <Step2_Review />,
   <SelfAssessment />,
-  <Articles />
+  <Articles />,
+  <Articles2 />,
+  <Articles3 />,
+  <Articles4 />
+  
 
   ]);
   useEffect(() => {

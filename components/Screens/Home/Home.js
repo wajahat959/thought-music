@@ -8,13 +8,17 @@ import {
   Image,
   Modal,
   Platform,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
 import { useSelector } from "react-redux";
-import Article from "../../../assets/images/article.png";
+import Article1 from "../../../assets/articles/articalbg1.jpg";
+import Article2 from "../../../assets/articles/articalbg2.jpg";
+import Article3 from "../../../assets/articles/articalbg3.jpg";
+import Article4 from "../../../assets/articles/articalbg4.jpg";
 import Background from "../../global/ImageBackground/index";
 const Home = ({ goTo }) => {
   const router = useRouter();
@@ -101,9 +105,56 @@ const Home = ({ goTo }) => {
         >
           Suggested for you:
         </Text>
+       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <View style={{flexDirection:'row'}}>
+        
         <TouchableOpacity onPress={() => goTo(3)}>
           <Image
-            source={Article}
+            source={Article1}
+            style={{
+              width: getRespValue(160),
+              height: getRespValue(80),
+              marginLeft: getRespValue(40),
+              opacity:Platform.OS=='ios'?  0.8:1,
+            }}
+          />
+          <Text
+            style={{
+              color: "white",
+              marginLeft: getRespValue(40),
+              marginTop: getRespValue(10),
+              fontSize: getRespValue(12),
+              marginBottom: 10,
+            }}
+          >
+            7 Tips to Avoid Stress...
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => goTo(4)}>
+          <Image
+            source={Article2}
+            style={{
+              width: getRespValue(160),
+              height: getRespValue(80),
+              marginLeft: getRespValue(40),
+              opacity:Platform.OS=='ios'?  0.8:1,
+            }}
+          />
+          <Text
+            style={{
+              color: "white",
+              marginLeft: getRespValue(40),
+              marginTop: getRespValue(10),
+              fontSize: getRespValue(12),
+              marginBottom: 10,
+            }}
+          >
+           7 Ways to Overcome Depression...
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => goTo(5)}>
+          <Image
+            source={Article3}
             style={{
               width: getRespValue(160),
               height: getRespValue(80),
@@ -123,6 +174,30 @@ const Home = ({ goTo }) => {
             Journal of Living Together...
           </Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => goTo(6)}>
+          <Image
+            source={Article4}
+            style={{
+              width: getRespValue(160),
+              height: getRespValue(80),
+              marginLeft: getRespValue(40),
+              opacity:Platform.OS=='ios'?  0.8:1,
+            }}
+          />
+          <Text
+            style={{
+              color: "white",
+              marginLeft: getRespValue(40),
+              marginTop: getRespValue(10),
+              fontSize: getRespValue(12),
+              marginBottom: 10,
+            }}
+          >
+            Journal of Living Together...
+          </Text>
+        </TouchableOpacity>
+        </View>
+        </ScrollView>
       </Background>
       <Modal
         visible={isPlaylistVisible}

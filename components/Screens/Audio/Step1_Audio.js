@@ -18,38 +18,38 @@ import Background from "../../global/ImageBackground/index";
 const tracks = [
   {
     id: 1,
-    Url: require("../../../assets/Sound/Humnava.mp3"),
-    title: "Humnava",
-    artist: "Humnava",
-    artwork: require("../../../assets/SoundImages/humnava.jpeg"),
+    Url: require("../../../assets/Sound/soundone.mp3"),
+    title: "Natural Hypnosis(RainFall Sound)",
+    artist: "Relaxing Sound",
+    artwork: require("../../../assets/SoundImages/bg1.jpg"),
   },
   {
     id: 2,
-    Url: require("../../../assets/Sound/Pehli.mp3"),
-    title: "Pehli",
-    artist: "Pehli",
-    artwork: require("../../../assets/SoundImages/pehli.jpeg"),
+    Url: require("../../../assets/Sound/soundtwo.mp3"),
+    title: "Relaxing Music For Stress Relief",
+    artist: "Relaxing Sound",
+    artwork: require("../../../assets/SoundImages/bg2.jpg"),
   },
   {
     id: 3,
-    Url: require("../../../assets/Sound/Arijit.mp3"),
-    title: "Arijit",
-    artist: "Arijit",
-    artwork: require("../../../assets/SoundImages/arijit.jpeg"),
+    Url: require("../../../assets/Sound/soundthree.mp3"),
+    title: "30 min SLEEP ★︎ Fall Asleep Instantly ★︎ ",
+    artist: "Relaxing Music",
+    artwork: require("../../../assets/SoundImages/bg3.jpeg"),
   },
   {
     id: 4,
-    Url: require("../../../assets/Sound/12Saal.mp3"),
-    title: "12 Saal",
-    artist: "Bilal Saeed",
-    artwork: require("../../../assets/SoundImages/12Saal.jpg"),
+    Url: require("../../../assets/Sound/soundfour.mp3"),
+    title: "Stress Relief",
+    artist: "RainFall Relaxing",
+    artwork: require("../../../assets/SoundImages/bg4.jpg"),
   },
   {
     id: 5,
-    Url: require("../../../assets/Sound/bilalSaeed.mp3"),
-    title: "Uchiyan Dewaran",
-    artist: "Bilal Saeed",
-    artwork: require("../../../assets/SoundImages/uchiyan.jpg"),
+    Url: require("../../../assets/Sound/soundfive.mp3"),
+    title: "Music for when you are stressed🍀",
+    artist: "RainFall Relaxing",
+    artwork: require("../../../assets/SoundImages/bg5.jpg"),
   },
 ];
 
@@ -150,12 +150,21 @@ const Step1_Audio = () => {
                   onPress={() => selectTrack(item.id - 1)}
                   style={styles.playlistItem}
                 >
-                  <View style={{ flex: 1 }}>
+            
                     <Image source={item.artwork} style={styles.image} />
-                    <Text style={{ color: "white", fontSize: getRespValue(18) }}>
+                    <Text style={{ color: "white", fontSize: getRespValue(18),
+                        //  width: 70,
+             
+                        textAlign:'center',
+                        verticalAlign:'bottom',
+                        //  height: 70,
+                         marginTop:getRespValue(40),
+                         marginRight: 10,
+                       
+                     }}>
                       {item.title}
                     </Text>
-                  </View>
+              
                 </TouchableOpacity>
               )}
             />
@@ -235,7 +244,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 70,
-    height: 70,
+    height: 90,
     marginRight: 10,
     borderRadius: 5,
   },
