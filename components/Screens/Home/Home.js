@@ -16,8 +16,8 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 import Article1 from "../../../assets/articles/articalbg1.jpg";
-import Article2 from "../../../assets/articles/articalbg2.jpg";
-import Article3 from "../../../assets/articles/articalbg3.jpg";
+import Article3 from "../../../assets/articles/articalbg2.jpg";
+import Article2 from "../../../assets/articles/articalbg3.jpg";
 import Article4 from "../../../assets/articles/articalbg4.jpg";
 import Background from "../../global/ImageBackground/index";
 const Home = ({ goTo }) => {
@@ -171,7 +171,7 @@ const Home = ({ goTo }) => {
               marginBottom: 10,
             }}
           >
-            Journal of Living Together...
+           Home Remedies for Insomnia...
           </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => goTo(6)}>

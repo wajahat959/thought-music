@@ -2,7 +2,7 @@ import { getRespValue } from "@/design/desin";
 import { Link } from "expo-router";
 import { default as React } from "react";
 import { Image, Text, View } from "react-native";
-import Article from "../../../assets/articles/articalbg2.jpg";
+import Article from "../../../assets/articles/articalbg3.jpg";
 import Header from "../../global/Header/index";
 import Background from "../../global/ImageBackground/index";
 const Articles2 = () => {

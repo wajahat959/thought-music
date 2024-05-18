@@ -2,7 +2,7 @@ import { getRespValue } from "@/design/desin";
 import { Link } from "expo-router";
 import { default as React } from "react";
 import { Image, Text, View } from "react-native";
-import Article from "../../../assets/articles/articalbg3.jpg";
+import Article from "../../../assets/articles/articalbg2.jpg";
 import Header from "../../global/Header/index";
 import Background from "../../global/ImageBackground/index";
 const Articles3 = () => {
@@ -13,7 +13,7 @@ const Articles3 = () => {
           source={Article}
           style={{
             width: "100%",
-            height: "30%",
+            height: "40%",
           }}
         />
         <Text
@@ -24,34 +24,35 @@ const Articles3 = () => {
             marginBottom: 10,
           }}
         >
-          ISSN 2373-6615 (Print); ISSN 2373-6631 (Online)
+          Home Remedies for Insomnia
         </Text>
         <Text
           style={{
             color: "white",
             textAlign: "justify",
-padding:10,
+            padding: 10,
             fontSize: getRespValue(12),
             marginBottom: 10,
           }}
         >
-          The Journal of Living Together is a peer-reviewed academic journal
-          that publishes a collection of articles that reflect various aspects
-          of peace and conflict studies. The contributions from across the
-          disciplines and grounded by relevant philosophical traditions and
-          theoretical and methodological approaches systematically broach topics
-          dealing with tribal, ethnic, racial, cultural, religious and sectarian
-          conflicts, as well as alternative dispute resolution and peacebuilding
-          processes. Through this journal it is our intention to inform,
-          inspire, reveal and explore the intricate and complex nature of human
-          interaction in the context of ethno-religious identity and the roles
-          it plays in war and peace. By sharing theories, methods, practices,
-          observations and valuable experiences we mean to open a broader, more
-          inclusive dialogue between policymakers, academics, researchers,
-          religious leaders, representatives of ethnic groups and indigenous
-          peoples, as well as field practitioners around the world.
+          Practicing habits like mindfulness meditation and taking supplements
+          like magnesium may help you sleep well at night. But if your symptoms
+          dont resolve, a doctor may be able to help.{"\n"}
+          Many people experience short-term insomnia. This common sleep disorder
+          can make it difficult to fall asleep and stay asleep until it’s time
+          to wake up.
+          {"\n"}Although the amount of sleep needed varies from person to
+          person, most adults need at least seven hours of sleep a night. If
+          your sleeping patterns are affecting your quality of life, home
+          remedies may be able to help.
         </Text>
-        <View style={{ flexDirection: "row",padding:10,marginTop:getRespValue(-20) }}>
+        <View
+          style={{
+            flexDirection: "row",
+            padding: 10,
+            marginTop: getRespValue(-20),
+          }}
+        >
           <Text
             style={{
               color: "white",
@@ -61,16 +62,20 @@ padding:10,
               marginBottom: 10,
             }}
           >
-            Through this journal it is our intention {' '}
+      Through meditation, exercise, and other home remedies.{" "}
           </Text>
-          <Link href="https://icermediation.org/journal-of-living-together/?gad_source=1&gclid=EAIaIQobChMIqpHfzq2IhgMViopoCR3laAmSEAAYASAAEgKzTvD_BwE">
-            <Text style={{
-                  color: "orange",
-                  textAlign: "justify",
-    
-                  fontSize: getRespValue(12),
-                  marginBottom: 10,
-            }}>Read More...</Text>
+          <Link href="https://www.healthline.com/health/healthy-sleep/insomnia-home-remedies#mantra-repetition">
+            <Text
+              style={{
+                color: "orange",
+                textAlign: "justify",
+
+                fontSize: getRespValue(12),
+                marginBottom: 10,
+              }}
+            >
+              Read More...
+            </Text>
           </Link>
         </View>
       </Background>

@@ -79,29 +79,7 @@ const Layout = () => {
       position: "absolute",
       marginBottom: 40,
           },
-          // tabBarIcon: ({ focused, color, size }) => {
-          //   let iconName;
-
-          //   if (route.name === "Home" && focused) {
-          //     iconName = "home";
-          //   } else if (route.name === "Audios") {
-          //     iconName = focused ? "music" : "music-note-outline";
-          //   } else if (route.name === "ChatBot") {
-          //     iconName = focused ? "robot" : "robot-outline";
-          //   } else if (route.name === "Sleep") {
-          //     iconName = focused ? "weather-night" : "weather-night";
-          //   } else if (route.name === "Profile") {
-          //     iconName = focused ? "account-cog" : "account-cog-outline";
-          //   }
-
-          //   return (
-          //     <MaterialCommunityIcons
-          //       name={iconName}
-          //       size={size}
-          //       color={color}
-          //     />
-          //   );
-          // },
+       
           tabBarActiveTintColor: "#8856C6",
           tabBarInactiveTintColor: "grey",
         })}
@@ -155,8 +133,8 @@ const Layout = () => {
                   opacity: focused?0.5:1,
                   marginLeft:
                     Platform.OS === "ios"
-                      ? getRespValue(-110)
-                      : getRespValue(-120),
+                      ? getRespValue(-100)
+                      : getRespValue(-110),
                   // marginTop: -83,
                 }}
               >
