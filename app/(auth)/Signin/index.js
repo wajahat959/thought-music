@@ -85,6 +85,9 @@ export default function Signin() {
     <AuthScreen title='Sign-In' topColor='white'>
       <Background>
       {/* <ScrollView> */}
+      <Image source={require('../../../assets/icons/TTLogo.png')}
+        style={{width:'35%',height:'20%',marginTop:10,alignSelf:'center'}}
+        />
       <KeyboardAwareScrollView
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
@@ -101,9 +104,7 @@ export default function Signin() {
         <View style={{ paddingTop: 20, flex: 1 }}>
           <StatusBar style="dark" />
           {/* <DismissKeyboardView> */}
-          <Image source={require('../../../assets/icons/TTLogo.png')}
-        style={{width:'40%',height:'45%',marginTop:10,alignSelf:'center'}}
-        />
+        
            
             <View style={{ flex: 1, gap: 12, alignItems: "center" }}>
               {/* <View style={{ alignItems: "center" }}> */}
