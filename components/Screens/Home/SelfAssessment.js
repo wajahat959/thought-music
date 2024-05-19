@@ -114,12 +114,10 @@ const SelfAssessment = () => {
   const onClose = (index) => {
     setIsPlaylistVisible(false);
   };
-  const onOpen = (index) => {
-    setIsPlaylistVisible(true);
-  };
+ 
 
   return (
-    <Header>
+    <Header  title='Assessment Self'>
       <Background>
         <ScrollView>
           <View style={styles.container}>
@@ -154,10 +152,7 @@ const SelfAssessment = () => {
                 ))}
               </View>
             ))}
-            {/* {resultText !== '' &&<View style={{flexDirection:'row',alignSelf:'center'}}>
-          <Text style={styles.averageText}>GAD-7 Anxiety Severity:</Text>
-          <Text style={styles.result}>{resultText}</Text>
-            </View>} */}
+       
             <Button
               buttonType="login"
               onPress={() => {
@@ -185,7 +180,7 @@ const SelfAssessment = () => {
         transparent={true}
         onRequestClose={() => {}}
       >
-        <Header>
+        <Header title='Assessment Result'>
           <Background>
             <View style={styles.modalContainer}>
               <View style={styles.card2}>

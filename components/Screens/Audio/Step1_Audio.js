@@ -137,7 +137,7 @@ const Step1_Audio = () => {
   return (
     <View style={styles.container}>
       {isPlaylistVisible && (
-        <Header>
+        <Header title='Playlist'>
           <Background>
             <FlatList
               style={{ marginBottom: 90 }}

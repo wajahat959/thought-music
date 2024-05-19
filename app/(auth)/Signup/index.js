@@ -39,8 +39,8 @@ const dispatch=useDispatch();
     Keyboard.dismiss();
     try {
       const res = await signup({
-        firstName: FirstnameRef.current,
-        lastName: LastnameRef.current,
+        name: FirstnameRef.current,
+        // lastName: LastnameRef.current,
         email: emailRef.current,
         password: passwordRef.current,
         confirmPassword: confirmPasswordRef.current,
@@ -58,7 +58,6 @@ const dispatch=useDispatch();
       !emailRef.current ||
       !passwordRef.current ||
       !FirstnameRef.current ||
-      !LastnameRef.current ||
       !confirmPasswordRef.current
     ) {
       Alert.alert("Sign Up", "Please enter all fields");
@@ -71,7 +70,10 @@ const dispatch=useDispatch();
     <AuthScreen title="Sign-Up" topColor="white">
       <Background>
       <ScrollView showsHorizontalScrollIndicator={false}
-      showsVerticalScrollIndicator={false} >
+      showsVerticalScrollIndicator={false}  >
+             <Image source={require('../../../assets/icons/TTLogo.png')}
+        style={{width:'35%',height:'20%',marginTop:10,alignSelf:'center'}}
+        />
         <View style={{ paddingTop: 20, flex: 1, marginBottom: 10 }}>
           <KeyboardAwareScrollView
             showsVerticalScrollIndicator={false}
@@ -86,14 +88,14 @@ const dispatch=useDispatch();
             // enableAutomaticScroll
             extraHeight={getRespValue(150)}
           >
+          
             <StatusBar style="dark" />
             {/* <DismissKeyboardView> */}
-              <View style={{ flex: 1, gap: 12, alignItems: "center" }}>
+              <View style={{ flex: 1, gap: 12, alignItems: "center",marginBottom:200 }}>
                 <View style={{ alignItems: "center" }}>
-                  <Image
-                    source={require("../../../assets/images/login.png")}
-                    style={styles.Logo}
-                  />
+              
+             
+    
                   <Text style={styles.signInTxt}>Signup</Text>
                 </View>
                 <View style={styles.text}>
@@ -105,29 +107,17 @@ const dispatch=useDispatch();
                   <TextInput
                     style={styles.txtInput}
                     onChangeText={(value) => (FirstnameRef.current = value)}
-                    placeholder="First Name"
+                    placeholder="Name"
                     placeholderTextColor="grey"
                   />
                 </View>
-                <View style={styles.text}>
-                  <Octicons
-                    name="browser"
-                    size={getRespValue(30)}
-                    color="grey"
-                  />
-                  <TextInput
-                    style={styles.txtInput}
-                    onChangeText={(value) => (LastnameRef.current = value)}
-                    placeholder="Last Name"
-                    placeholderTextColor="grey"
-                  />
-                </View>
+              
                 <View style={styles.text}>
                   <Octicons name="mail" size={getRespValue(30)} color="grey" />
                   <TextInput
                     style={styles.txtInput}
                     onChangeText={(value) => (emailRef.current = value)}
-                    placeholder="Enter your email"
+                    placeholder="Email"
                     placeholderTextColor="grey"
                   />
                 </View>
@@ -203,7 +193,7 @@ export const styles = StyleSheet.create({
   },
   signInTxt: {
     alignSelf: "center",
-    marginTop: getRespValue(30),
+    marginTop: getRespValue(5),
       fontSize: getRespValue(30), 
       fontWeight: 'bold', 
       color: 'orange',

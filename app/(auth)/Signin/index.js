@@ -2,7 +2,7 @@ import { Octicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useToast } from "native-base";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   Alert,
   Image,
@@ -22,6 +22,7 @@ import Background from "../../../components/global/ImageBackground";
 import { getRespValue } from "../../../design/desin";
 import { renderToastError, renderToastSuccess } from "../../../hooks/useToasty";
 import { useSigninMutation } from "../../../store/api/signinApi";
+import { useCurrentUserQuery } from "../../../store/api/userData";
 import { selectUser } from "../../../store/selectors/userSelect";
 import { setAuthState } from "../../../store/slices/userSlice";
 export default function Signin() {
@@ -44,8 +45,11 @@ export default function Signin() {
         password: passwordRef.current,
       }).unwrap();
       console.log("res", res?.results?.token);
-      dispatch(setAuthState({ accessTokens: res?.results?.token }));
-      router.replace("(main)/Home");
+      if(
+      dispatch(setAuthState({ accessTokens: res?.results?.token }))){
+        router.replace("(main)/Home");
+      }
+      
       renderToastSuccess(res?.message || "SignIn Successfully", toast);
     } catch (error) {
       console.log("email:", emailRef.current);
@@ -62,7 +66,21 @@ export default function Signin() {
     console.log("thiiddsa");
     handleUpload();
     //login process
-  };
+  }; 
+
+ 
+  const { 
+    isLoading: currentLoading,
+    refetch:customRefetch,
+    isFetching: currentFetching,
+  } = useCurrentUserQuery(null, {
+    skip: !accessToken,
+  });
+  useEffect(() => {
+    if (accessToken) {
+      customRefetch?.();
+    }
+  }, [accessToken]);
   return (
     <AuthScreen title='Sign-In' topColor='white'>
       <Background>
@@ -83,14 +101,14 @@ export default function Signin() {
         <View style={{ paddingTop: 20, flex: 1 }}>
           <StatusBar style="dark" />
           {/* <DismissKeyboardView> */}
+          <Image source={require('../../../assets/icons/TTLogo.png')}
+        style={{width:'40%',height:'45%',marginTop:10,alignSelf:'center'}}
+        />
+           
             <View style={{ flex: 1, gap: 12, alignItems: "center" }}>
-              <View style={{ alignItems: "center" }}>
-                <Image
-                  source={require("../../../assets/images/login.png")}
-                  style={styles.Logo}
-                />
+              {/* <View style={{ alignItems: "center" }}> */}
                 <Text style={styles.signInTxt}>Signin</Text>
-              </View>
+              {/* </View> */}
               <View style={styles.text}>
                 <Octicons name="mail" size={getRespValue(30)} color="grey" />
                 <TextInput

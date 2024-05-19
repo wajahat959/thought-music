@@ -1,17 +1,13 @@
+import { useRouter } from 'expo-router';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Header from '../../../components/global/Header';
 import Background from '../../../components/global/ImageBackground';
-
-
-
-import { useRouter } from 'expo-router';
-import { StyleSheet, TouchableOpacity } from 'react-native';
 
 const Step1_Sleep  = ({navigation}) => {
   const router=useRouter()
   return (
-  <Header >
+  <Header title='Sleep'>
     <Background>
       <View style={styles.container}>
         {/* Circular Button 1 */}

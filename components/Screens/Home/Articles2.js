@@ -7,8 +7,19 @@ import Header from "../../global/Header/index";
 import Background from "../../global/ImageBackground/index";
 const Articles2 = () => {
   return (
-    <Header>
+    <Header title="Article">
       <Background>
+      <Text
+          style={{
+            color: "white",
+            textAlign: "center",
+            fontSize: getRespValue(22),
+            marginBottom: 10,
+            fontWeight:'600',
+          }}
+        >
+        7 Ways to Overcome Depression Without Medication
+        </Text>
         <Image
           source={Article}
           style={{
@@ -16,51 +27,43 @@ const Articles2 = () => {
             height: "30%",
           }}
         />
+      
         <Text
           style={{
             color: "white",
-            textAlign: "center",
-            fontSize: getRespValue(12),
-            marginBottom: 5,
-          }}
-        >
-          7 Ways to Overcome Depression Without Medication
-        </Text>
-        <Text
-          style={{
-            color: "white",
-            textAlign: "justify",
-            padding: 15,
-            fontSize: getRespValue(12),
-            marginBottom: 2,
+            textAlign: "left",    
+            justifyContent:'center',
+            alignSelf:'center',
+             padding:20,
+            fontSize: getRespValue(14),
+            marginBottom: 10,
           }}
         >
           A major depressive episode is defined as experiencing five or more of
           the following symptoms every day (or most days) for two weeks or more:
-          {"\n"}• Depressed or irritable mood{"\n"}• Sleep problems (i.e.,
+          {"\n"}•Sleep problems (i.e.,
           sleeping too much or too little; sleeping mainly during the day){"\n"}
-          • Change in interests (i.e., not being interested in what you used to
-          enjoy) or low motivation{"\n"}• Excessive guilt or unrealistically low
+         • Excessive guilt or unrealistically low
           self-image{"\n"}• Significantly low energy and/or change in self-care
           (i.e., not showering anymore){"\n"}• Significantly worse concentration
           (i.e., sharp decline in grades or performance){"\n"}• Changes in
           appetite (i.e., eating too much or too little){"\n"}• Agitation or
           severe anxiety/panic attacks{"\n"}• Suicidal thoughts, plans or
           behaviors — including self-harm (i.e., intentionally cutting or
-          burning yourself){"\n"}It’s important to remember that not everyone who is depressed is suicidal. You can still seek help even if you haven’t demonstrated any specific 
+          burning yourself)
         </Text>
         <View
           style={{
             flexDirection: "row",
-            padding: 15,
-            marginTop: getRespValue(-20),
+            padding: 20,
+            marginTop: getRespValue(-50),
           }}
         >
           <Text
             style={{
               color: "white",
               textAlign: "justify",
-              fontSize: getRespValue(12),
+              fontSize: getRespValue(14),
               marginBottom: 10,
             }}
           >
@@ -72,7 +75,7 @@ const Articles2 = () => {
                 color: "orange",
                 textAlign: "justify",
 
-                fontSize: getRespValue(12),
+                fontSize: getRespValue(14),
                 marginBottom: 10,
               }}
             >

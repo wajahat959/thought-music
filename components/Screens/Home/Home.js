@@ -1,9 +1,9 @@
 import Header from "@/components/global/Header/index";
 import { getRespValue } from "@/design/desin";
 import { selectUser } from "@/store/selectors/userSelect";
+import { setReviewModal } from "@/store/slices/userSlice";
 import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Image,
   Modal,
@@ -14,23 +14,43 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Article1 from "../../../assets/articles/articalbg1.jpg";
 import Article3 from "../../../assets/articles/articalbg2.jpg";
 import Article2 from "../../../assets/articles/articalbg3.jpg";
 import Article4 from "../../../assets/articles/articalbg4.jpg";
 import Background from "../../global/ImageBackground/index";
 const Home = ({ goTo }) => {
-  const router = useRouter();
-  const [pressed, setPressed] = useState(false);
-  const { currentData } = useSelector(selectUser);
-  const handlePressIn = () => {
-    setPressed(true);
-  };
+  const [currentDate, setCurrentDate] = useState('');
+  const {currentData}=useSelector(selectUser);
+  const [modalVisible, setModalVisible] = useState(false);
+  const {reviewModal}= useSelector(selectUser);
+  const dispatch=useDispatch();
+  const [dat,setdat]=useState('')
+  useEffect(() => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based, add leading zero
+    const day = String(today.getDate()).padStart(2, '0'); // Add leading zero
+    const formattedDate = `${year}-${month}-${day}`;
+    setdat(formattedDate);
+    setCurrentDate(formattedDate);
+    console.log('Today Date',formattedDate )
+  
+  }, []);
 
-  const handlePressOut = () => {
-    setPressed(false);
-  };
+  useEffect(() => {
+    if (currentDate && currentData?.results?.latestReview?.date) {
+      if (currentDate !== currentData.results.latestReview.date && !reviewModal) {
+        setModalVisible(true);
+      }
+      console.log('Api Date', currentData.results.latestReview.date);
+      console.log('Review Modal', reviewModal);
+      console.log('current date', currentDate);
+    }
+  }, [currentDate, currentData, reviewModal]);
+  
+ 
   const [isPlaylistVisible, setIsPlaylistVisible] = useState(false);
 
   const onClose = (index) => {
@@ -39,13 +59,17 @@ const Home = ({ goTo }) => {
   const onOpen = (index) => {
     setIsPlaylistVisible(true);
   };
-  const firstName = currentData?.results?.user?.firstName ?? "";
+  const name = currentData?.results?.user?.firstName ?? "";
   const lastName = currentData?.results?.user?.lastName ?? "";
-
+const truncate = (str, length) => {
+  return str.length > length ? str.substring(0, length) + "..." : str;
+};
   return (
-    <Header>
+    <Header title='Thought Theory'>
       <Background>
-        <View style={{ flexDirection: "row", margin: getRespValue(15) }}>
+        <ScrollView  showsVerticalScrollIndicator={false}>
+        <View style={{ flexDirection: "row",
+         margin: getRespValue(15)}}>
           <TouchableOpacity onPress={() => onOpen()}>
             <Ionicons name="person-circle-sharp" size={40} color="white" />
           </TouchableOpacity>
@@ -57,20 +81,22 @@ const Home = ({ goTo }) => {
               marginLeft: getRespValue(15),
             }}
           >
-            Hii {currentData?.results?.user?.firstName}
+          Hii {truncate(currentData?.results?.user?.name || '', 16)}
           </Text>
         </View>
+    
         <Text 
         style={{color: "white",
         fontWeight: "600",
         marginLeft: getRespValue(20),
-        marginTop: getRespValue(10),
+        marginTop: getRespValue(25),
         fontSize: 15,
-        marginBottom: 10,}}
-        >Daily check in</Text>
+        marginBottom: 10,}}>Daily check in</Text>
         <View style={{
-          height:getRespValue(290) ,
+          height:getRespValue(360) ,
           width:'90%',
+          
+          marginTop:10,
           alignSelf:'center',
           padding:getRespValue(10),
           borderColor:'#FAFFF4',
@@ -91,6 +117,7 @@ const Home = ({ goTo }) => {
           onPress={() => goTo && goTo(2)}
         >
           <Text style={styles.text}>Self Assessment</Text>
+          <Text style={{fontSize:12,color:'white'}}>GAD-7</Text>
         </TouchableOpacity>
         </View>
         <Text
@@ -98,7 +125,7 @@ const Home = ({ goTo }) => {
             color: "white",
             fontWeight: "600",
             marginLeft: getRespValue(20),
-            marginTop: getRespValue(10),
+            marginTop: getRespValue(35),
             fontSize: 15,
             marginBottom: 10,
           }}
@@ -106,7 +133,7 @@ const Home = ({ goTo }) => {
           Suggested for you:
         </Text>
        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View style={{flexDirection:'row'}}>
+        <View style={{flexDirection:'row',marginBottom:150}}>
         
         <TouchableOpacity onPress={() => goTo(3)}>
           <Image
@@ -198,28 +225,30 @@ const Home = ({ goTo }) => {
         </TouchableOpacity>
         </View>
         </ScrollView>
+        </ScrollView>
       </Background>
+
       <Modal
         visible={isPlaylistVisible}
         animationType="slide"
         transparent={true}
         onRequestClose={() => {}}
       >
-        <Header>
+        <Header title='Profile'>
           <Background>
             <View style={styles.modalContainer}>
               <View>
                 <Ionicons name="person-circle-sharp" size={200} color="white" />
               </View>
-              <View>
+              <View style={{marginBottom:getRespValue(30)}}>
                 <Text
                   style={{
                     color: "white",
                     fontSize: getRespValue(40),
                   }}
                 >
-                  {currentData?.results?.user?.firstName}{" "}
-                  {currentData?.results?.user?.lastName}
+                  {truncate(currentData?.results?.user?.name || '', 16)}
+               
                 </Text>
               </View>
               <View style={styles.card}>
@@ -230,23 +259,13 @@ const Home = ({ goTo }) => {
                     justifyContent: "space-between",
                   }}
                 >
-                  <Text style={styles.textInput}>FirstName:</Text>
+                  <Text style={styles.textInput}>Name:</Text>
                   <Text numberOfLines={1} style={styles.text}>
-                    {firstName}
+                 {truncate(currentData?.results?.user?.name || '', 16)}
                   </Text>
                 </View>
-                {/* lastName */}
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Text style={styles.textInput}>LastName:</Text>
-                  <Text numberOfLines={1} style={styles.text}>
-                    {lastName}
-                  </Text>
-                </View>
+           
+               
                 {/* Email */}
                 <View
                   style={{
@@ -288,6 +307,41 @@ const Home = ({ goTo }) => {
           </Background>
         </Header>
       </Modal>
+   
+      {/* Rating Modal*/}
+      <Modal
+        transparent={true}
+        animationType="fade"
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalOverlay2}>
+          <View style={styles.modalContainer2}>
+            <Text style={styles.modalText2}>Your Today Review is not Submited</Text>
+            <TouchableOpacity
+              style={styles.closeButton2}
+              onPress={() => {setModalVisible(false)
+                goTo(1)
+                dispatch(setReviewModal(true))
+              }
+              }
+            >
+              <Text style={styles.closeButtonText2}>Go to submit</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.closeButton2}
+              onPress={() => {
+               
+                setModalVisible(false);
+              dispatch(setReviewModal(true))
+              }}
+            >
+              <Text style={styles.closeButtonText2}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
     </Header>
   );
 };
@@ -352,7 +406,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5, // For iOS
     marginTop: 20,
-    height: "40%",
+    height: "30%",
     // flex:1,
     // flexDirection: "row",
     marginBottom: 10,
@@ -385,5 +439,47 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#007bff", // Blue text color
+  },
+
+  container2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalOverlay2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContainer2: {
+    width: getRespValue(400),
+    padding: getRespValue(20),
+    borderRadius:getRespValue(60),
+    backgroundColor:  "#5E3CE9",
+    // borderRadius: 10,
+    alignItems: 'center',
+    opacity:0.9
+  },
+  modalText2: {
+    marginBottom: getRespValue(60),
+    fontSize: getRespValue(24),
+    fontWeight:'600',
+    color:'white',
+  },
+  closeButton2: {
+    backgroundColor:"white",
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+    marginBottom: 20,
+    width:'60%',
+    alignContent:'center',
+    alignItems:'center',
+  },
+  
+  closeButtonText2: {
+    color: 'black',
+    fontSize: 16,
   },
 });

@@ -5,7 +5,7 @@ import { selectUser } from "../../../store/selectors/userSelect";
 
 const UserProfile = () => {
   const { currentData } = useSelector(selectUser);
-  const firstName = currentData?.results?.user?.firstName ?? "";
+  const name = currentData?.results?.user?.name ?? "";
   const lastName = currentData?.results?.user?.lastName ?? "";
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -13,11 +13,12 @@ const UserProfile = () => {
   };
   let fullName = firstName + " " + lastName;
 
-  if (fullName.length > 16) {
+  if (name.length > 16) {
     fullName = fullName.substring(0, 16) + "...";
   }
+
   return (
-    <Header>
+    <Header title='Profile'>
     <BackGround>
       <View style={styles.modalContainer}>
         <View>
@@ -30,8 +31,7 @@ const UserProfile = () => {
               fontSize: getRespValue(40),
             }}
           >
-            {currentData?.results?.user?.firstName}{" "}
-            {currentData?.results?.user?.lastName}
+            {name}
           </Text>
         </View>
         <View style={styles.card}>
@@ -39,16 +39,10 @@ const UserProfile = () => {
         <View style={{flexDirection:'row',justifyContent:'space-between',}}>
     <Text style={styles.textInput}>FirstName:</Text>
     <Text numberOfLines={1} style={styles.text}>
-    {firstName}
+    {name}
     </Text>
  </View>
- {/* lastName */}
- <View style={{flexDirection:'row',justifyContent:'space-between',}}>
-    <Text style={styles.textInput}>LastName:</Text>
-    <Text numberOfLines={1} style={styles.text}>
-    {lastName}
-    </Text>
- </View>
+
           {/* Email */}
         <View style={{flexDirection:'row',justifyContent:'space-between',flex:1}}>
     <Text style={styles.textInput}>Email:</Text>

@@ -74,6 +74,7 @@ export interface IUserState {
   uploadData: IUserData | null;
   accessToken: '';
 soundPause:boolean;
+reviewModal:boolean;
   email: string | null;
   codeCountry: string;
   phoneNumber: string;

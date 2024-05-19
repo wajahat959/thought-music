@@ -1,8 +1,9 @@
 import { Redirect, useRouter } from "expo-router";
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
 import Background from "../components/global/ImageBackground";
+import { getRespValue } from "../design/desin";
 import { selectUser } from "../store/selectors/userSelect";
 const Home1 = () => {
   const router = useRouter();
@@ -13,14 +14,17 @@ if(accessToken){
 }
   return (
    <Background>
-      <View style={{ alignItems: "center", paddingHorizontal: 20,flex:1,justifyContent:'center' }}>
-        <Text style={{ fontSize: 28, marginBottom: 20, color: "white", fontWeight: "bold" }}>
+      <View style={{ alignItems: "center", paddingHorizontal: 20,flex:1}}>
+        <Image source={require('../assets/icons/TTLogo.png')}
+        style={{width:'30%',height:'20%',marginTop:20}}
+        />
+        <Text style={{ fontSize: getRespValue(48), marginBottom:getRespValue(70),marginTop:getRespValue(10), color: "white", fontWeight: "bold" }}>
           Welcome
         </Text>
         <TouchableOpacity
           onPress={() => router.replace("/(auth)/Signin")}
           style={{
-            backgroundColor: "#3498db",
+            backgroundColor: "purple",
             paddingVertical: 12,
             paddingHorizontal: 30,
             borderRadius: 8,
@@ -32,7 +36,7 @@ if(accessToken){
         <TouchableOpacity
           onPress={() => router.replace("/(auth)/Signup")}
           style={{
-            backgroundColor: "#2ecc71",
+            backgroundColor: "#D8A3DD",
             paddingVertical: 12,
             paddingHorizontal: 30,
             borderRadius: 8,

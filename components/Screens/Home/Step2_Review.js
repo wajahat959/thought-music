@@ -1,9 +1,10 @@
 import Button from "@/components/global/Button";
 import Header from "@/components/global/Header";
 import Background from "@/components/global/ImageBackground";
+import { getRespValue } from "@/design/desin";
 import { useRouter } from "expo-router";
 import { useToast } from "native-base";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { renderToastError, renderToastSuccess } from "../../../hooks/useToasty";
@@ -18,39 +19,47 @@ const Step2_Review = ({ goTo }) => {
   const router = useRouter();
   const [rating, setRating] = useState(0); // Initial rating value
   const { accessToken, currentData } = useSelector(selectUser);
-  const {showButton, setShowButton}= useState(true);
+  const [showButton, setShowButton] = useState(true);
+  const [result, setResult] = useState('');
+  
   const handleBack = () => {
     goTo(0);
   };
-  //Api date
+
+  // Helper function to format date
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-GB"); // Format as "yyyy-mm-dd"
   };
-  // const { averageRatingData } = useSelector(selectUser);
-  // Format the date as "YYYY-MM-DD" Today Data
-  const formattedDate = `${today.getFullYear()}-${String(
-    today.getMonth() + 1
-  ).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+
+  const formattedDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
   const labels = ["Awful", "Bad", "Okay", "Good", "Great"]; // Array of labels
+console.log('formatedDate',formattedDate)
+  // compare dates
+  const updatedDate = formatDate((currentData?.results?.user?.updatedAt));
 
+  useEffect(() => {
+    if (updatedDate === formattedDate) {
+      setShowButton(false);
+    } else {
+      setShowButton(true);
+    }
+  }, [updatedDate, formattedDate]);
 
-  //compare dates
-  const updatedDate=formatDate((currentData?.results?.user?.updatedAt));
-const comparison=()=>{
-  if(updatedDate===formattedDate){
-    setShowButton(false);
-  }
-}
-console.log('comparison',formattedDate,updatedDate)
+  useEffect(() => {
+    const avgRating = parseInt(currentData?.results?.averageRating);
+    if (!isNaN(avgRating) && avgRating >= 1 && avgRating <= 5) {
+      setResult(labels[avgRating - 1]);
+    } else {
+      setResult('N/A');
+    }
+  }, [currentData, labels]);
 
   const handleStarPress = (value) => {
     setRating(value);
   };
 
-  
-
-  const [selfassessment,{isLoading}] = useSelfassessmentMutation();
+  const [selfassessment, { isLoading }] = useSelfassessmentMutation();
 
   const handleUpload = async () => {
     try {
@@ -61,22 +70,19 @@ console.log('comparison',formattedDate,updatedDate)
 
       dispatch(setAverageRating({ data: res?.results }));
 
-      renderToastSuccess(
-        res?.message || "Rating Submitted Successfully",
-        toast
-      );
+      renderToastSuccess(res?.message || "Rating Submitted Successfully", toast);
     } catch (error) {
       console.log("RatingSubmissionError", error);
-      if(error?.data?.message==="jwt expired"){
-        dispatch(setLogout())
-        router.replace('/')
+      if (error?.data?.message === "jwt expired") {
+        dispatch(setLogout());
+        router.replace('/');
       }
       renderToastError(error?.data?.message || "Something went wrong", toast);
     }
   };
 
   return (
-    <Header>
+    <Header title='Review Rating'>
       <Background>
         <View style={{ flex: 1, marginTop: 60 }}>
           <Text style={styles.title}>How was your day?</Text>
@@ -102,65 +108,39 @@ console.log('comparison',formattedDate,updatedDate)
             ))}
           </View>
 
-          <Button
-            buttonType="login"
-            loading={isLoading}
-            onPress={() => {
-              handleUpload();
-            
-            }}
-            buttonStyles={styles.button}
-          >
-            Submit
-          </Button>
+       
+            <Button
+              buttonType="login"
+              loading={isLoading}
+              onPress={handleUpload}
+              buttonStyles={styles.button}
+            >
+              Submit
+            </Button>
+   
 
-          {/* <Button
-          buttonType="login"
-          onPress={() => handleBack()}
-          buttonStyles={styles.button}
-        > Back</Button> */}
-        <View style={styles.card}>
-         <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent:'space-between',        
-              marginTop: 10,   
-            }}
-          >
-           
-          <Text style={{ fontWeight: "bold", color: "white" }}>
-            Average Rating:
-          </Text>
-          {isLoading?(<View>
-         <ActivityIndicator size={15} color='white'></ActivityIndicator>
-          </View>):(  <Text style={{ marginLeft: 10,color:'white' }}>
-            {parseFloat(currentData?.results?.averageRating).toFixed(2)}
-          </Text>)}
-        
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent:'space-between',
-              
-              marginTop: 10,
-        
-            }}
-          >
-            <Text style={{ marginLeft: 10,color:'white' }}>Date:</Text>
-            <Text style={{ marginLeft: 10,color:'white' }}>
-              {formatDate(currentData?.results?.user?.updatedAt)}
-            </Text>
-          </View>
+          <View style={styles.card}>
+            <View style={styles.infoRow}>
+              <Text style={{ fontWeight: "bold", color: "white" }}>Recent Mood:</Text>
+              {isLoading ? (
+                <ActivityIndicator size={15} color='white' />
+              ) : (
+                <Text style={{ marginLeft: 10, color: 'white' }}>{result}</Text>
+              )}
+            </View>
+            <View style={styles.infoRow}>
+              <Text style={{ marginLeft: 10, color: 'white' }}>Date:</Text>
+              <Text style={{ marginLeft: 10, color: 'white' }}>{formatDate(currentData?.results?.latestReview?.date)}</Text>
+            </View>
+            {/* <View style={styles.infoRow}>
+              <Text style={{ marginLeft: 10, color: 'white' }}>Hii {truncate(currentData?.results?.user?.name || '', 12)}</Text>
+            </View> */}
           </View>
         </View>
       </Background>
     </Header>
   );
 };
-
 export default Step2_Review;
 
 const styles = StyleSheet.create({
@@ -174,6 +154,10 @@ const styles = StyleSheet.create({
     color: "#1588DC",
     fontVariant:'italic'
   
+  },
+  infoRow:{
+    flexDirection:'row',
+    justifyContent:'space-between',marginTop:getRespValue(20)
   },
   card: {
     alignSelf: "center",
@@ -200,7 +184,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     alignSelf: "center",
-    marginBottom: 20,
+    marginBottom: 30,
     color: "white",
   },
   starsContainer: {
@@ -217,14 +201,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   selectedStar: {
-    backgroundColor: "gold",
+    backgroundColor: "grey",
   },
   starText: {
-    fontSize: 16,
+    fontSize:getRespValue(22),
     color: "white",
   },
   selectedStarText: {
-    color: "gold",
+    color: "black",
   },
   button: {
     marginTop: 30,

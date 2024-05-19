@@ -26,25 +26,26 @@ const Index = ({ goTo }) => {
   const onOpen = (index) => {
     setIsPlaylistVisible(true);
   };
-  const firstName = currentData?.results?.user?.firstName ?? "";
+  const name = currentData?.results?.user?.name ?? "";
   const lastName = currentData?.results?.user?.lastName ?? "";
-
+  if (name.length > 16) {
+    name = name.substring(0, 16) + "...";
+  }
   return (
-    <Header>
+    <Header title='Profile'>
       <Background>
         <View style={styles.modalContainer}>
           <View>
             <Ionicons name="person-circle-sharp" size={150} color="white" />
           </View>
-          <View>
+          <View style={{marginBottom:getRespValue(40)}}>
             <Text
               style={{
                 color: "white",
                 fontSize: getRespValue(35),
               }}
             >
-              {currentData?.results?.user?.firstName}{" "}
-              {currentData?.results?.user?.lastName}
+              {name}
             </Text>
           </View>
           <View style={styles.card}>
@@ -52,20 +53,13 @@ const Index = ({ goTo }) => {
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
-              <Text style={styles.textInput}>FirstName:</Text>
+              <Text style={styles.textInput}>Name:</Text>
               <Text numberOfLines={1} style={styles.text}>
-                {firstName}
+                {name}
               </Text>
             </View>
-            {/* lastName */}
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <Text style={styles.textInput}>LastName:</Text>
-              <Text numberOfLines={1} style={styles.text}>
-                {lastName}
-              </Text>
-            </View>
+
+         
             {/* Email */}
             <View
               style={{
@@ -146,7 +140,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5, // For iOS
     marginTop: 20,
-    height: "40%",
+    height: "30%",
     // flex:1,
     // flexDirection: "row",
     marginBottom: 10,

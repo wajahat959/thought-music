@@ -4,7 +4,7 @@
 import file from '@/assets/icons/file.png';
 import turnOff from '@/assets/icons/turnoff.png';
 import { getRespValue } from "@/design/desin";
-import { setLogout } from "@/store/slices/userSlice";
+import { setLogout, setReviewModal } from "@/store/slices/userSlice";
 import { useRouter } from "expo-router";
 import { useMemo } from "react";
 import {
@@ -49,6 +49,7 @@ const Header = (props) => {
   const router=useRouter();
 const dispatch=useDispatch();
 const handleLogout=()=>{
+  dispatch(setReviewModal(false))
   dispatch(setLogout());
   router.replace("/");
 }
@@ -87,8 +88,8 @@ const handleLogout=()=>{
           >
             <Image
               style={{
-                width: getRespValue(30),
-                height: getRespValue(30),
+                width: getRespValue(27),
+                height: getRespValue(27),
                 //   marginLeft: getRespValue(10),
                 opacity:0.7,
               }}
@@ -96,7 +97,7 @@ const handleLogout=()=>{
             />
             <Text
               style={{
-                fontSize: getRespValue(28),
+                fontSize: getRespValue(24),
                 justifyContent: "center",
                 textAlign: "center",
                 alignSelf: "center",
@@ -106,16 +107,17 @@ const handleLogout=()=>{
                 fontWeight: "700",
                 color: "#F4F4F4",
                 opacity:0.5,
-                width: getRespValue(150),
+                width: getRespValue(140),
+                ...style
               }}
             >
-              Thought Therapy
+                {title}
             </Text>
             <TouchableOpacity onPress={()=>handleLogout()}>
             <Image
               style={{
-                width: getRespValue(30),
-                height: getRespValue(30),
+                width: getRespValue(27),
+                height: getRespValue(27),
                 opacity:0.7,
                 //   marginLeft: getRespValue(10),
               }}

@@ -18,7 +18,7 @@ const Step1_Profile = () => {
     fullName = fullName.substring(0, 16) + "...";
   }
   return (
-    <Header>
+    <Header title='Profile'>
     <Background>
       <View style={styles.modalContainer}>
         <View>

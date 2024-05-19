@@ -101,7 +101,7 @@ const Layout = () => {
                 style={{
                   justifycontent: "center",
                   marginBottom: Platform.OS === "ios" ? 3 : 0,
-                  opacity: focused?0.5:1,
+                  opacity: focused?1:0.8,
                  
                   
                 }}
@@ -111,7 +111,7 @@ const Layout = () => {
                   style={{ marginTop: getRespValue(7),
                      left: 16,
                   bottom:24,
-                  opacity: focused?0.5:1,
+                  opacity: focused?1:0.8,
                 //  marginBottom: focused?8:0
                     }}
                   source={homeIcon}
@@ -130,7 +130,7 @@ const Layout = () => {
               <View
                 style={{
                   justifycontent: "center",
-                  opacity: focused?0.5:1,
+                  opacity: focused?1:0.8,
                   marginLeft:
                     Platform.OS === "ios"
                       ? getRespValue(-100)
@@ -169,7 +169,7 @@ const Layout = () => {
             headerShown: false,
             tabBarIcon: ({focused}) => (
               <View style={{ justifycontent: "center" }}>
-                <Image style={{  opacity: focused?0.5:1, marginTop: getRespValue(13),width:getRespValue(80)
+                <Image style={{  opacity: focused?1:0.8, marginTop: getRespValue(13),width:getRespValue(80)
                   ,height:getRespValue(80)}} source={chatIcon} />
               </View>
             ),
@@ -187,7 +187,7 @@ const Layout = () => {
               <View
                 style={{
                   justifycontent: "center",
-                  opacity: focused?0.5:1,
+                  opacity: focused?1:0.8,
                   marginBottom: Platform.OS === "ios" ? 3 : 0,
                 }}
               >
@@ -204,7 +204,7 @@ const Layout = () => {
 
             headerShown: false,
             tabBarIcon: ({focused}) => (
-              <View style={{ justifycontent: "center", opacity: focused?0.5:1, }}>
+              <View style={{ justifycontent: "center", opacity: focused?1:0.8, }}>
                 <Image style={styles.outerIcon} source={IconBack} />
                 <Image style={styles.innerIcon} source={profileIcon} />
               </View>

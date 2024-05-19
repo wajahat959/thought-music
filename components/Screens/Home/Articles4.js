@@ -7,8 +7,19 @@ import Header from "../../global/Header/index";
 import Background from "../../global/ImageBackground/index";
 const Articles4 = () => {
   return (
-    <Header>
+    <Header title="Article">
       <Background>
+      <Text
+          style={{
+            color: "white",
+            textAlign: "center",
+            fontSize: getRespValue(22),
+            marginBottom: 10,
+            fontWeight:'600',
+          }}
+        >
+              The Journal of Living Together 
+        </Text>
         <Image
           source={Article}
           style={{
@@ -16,22 +27,15 @@ const Articles4 = () => {
             height: "30%",
           }}
         />
+      
         <Text
           style={{
             color: "white",
-            textAlign: "center",
-            fontSize: getRespValue(12),
-            marginBottom: 10,
-          }}
-        >
-          ISSN 2373-6615 (Print); ISSN 2373-6631 (Online)
-        </Text>
-        <Text
-          style={{
-            color: "white",
-            textAlign: "justify",
-             padding:10,
-            fontSize: getRespValue(12),
+            textAlign: "left",    
+            justifyContent:'center',
+            alignSelf:'center',
+             padding:20,
+            fontSize: getRespValue(14),
             marginBottom: 10,
           }}
         >
@@ -51,14 +55,13 @@ const Articles4 = () => {
           religious leaders, representatives of ethnic groups and indigenous
           peoples, as well as field practitioners around the world.
         </Text>
-        <View style={{ flexDirection: "row",padding:10,marginTop:getRespValue(-20) }}>
+        <View style={{ flexDirection: "row",padding:20,marginTop:getRespValue(-50) }}>
           <Text
             style={{
               color: "white",
-              textAlign: "justify",
-
-              fontSize: getRespValue(12),
-              marginBottom: 10,
+              textAlign: "left",
+              fontSize: getRespValue(14),
+              marginBottom: 20,
             }}
           >
             Through this journal it is our intention {' '}
@@ -66,9 +69,8 @@ const Articles4 = () => {
           <Link href="https://icermediation.org/journal-of-living-together/?gad_source=1&gclid=EAIaIQobChMIqpHfzq2IhgMViopoCR3laAmSEAAYASAAEgKzTvD_BwE">
             <Text style={{
                   color: "orange",
-                  textAlign: "justify",
-    
-                  fontSize: getRespValue(12),
+                  textAlign: "left",
+                  fontSize: getRespValue(14),
                   marginBottom: 10,
             }}>Read More...</Text>
           </Link>

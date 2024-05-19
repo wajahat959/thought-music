@@ -27,6 +27,7 @@ const initialState: IUserState = {
     },
   currentData: null,
   soundPause:false,
+  reviewModal:false,
 };
 
 // Actual Slice
@@ -55,6 +56,9 @@ export const userSlice = createSlice({
     },
     setAverageRating: (state, action) => {
       state.averageRatingData = action.payload.data;
+    },
+    setReviewModal: (state, action) => {
+      state.reviewModal = action.payload;
     },
     setLogout: state => {
       state.data = null;
@@ -102,6 +106,7 @@ export const {
   setAuthState,
   setLogout,
   setSoundPause,
+  setReviewModal
 } = userSlice.actions;
 
 export const selectUserState = (state: RootState) => state.user;

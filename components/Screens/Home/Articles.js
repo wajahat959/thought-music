@@ -7,8 +7,19 @@ import Header from "../../global/Header/index";
 import Background from "../../global/ImageBackground/index";
 const Articles = () => {
   return (
-    <Header>
+    <Header title="Article">
       <Background>
+      <Text
+          style={{
+            color: "white",
+            textAlign: "center",
+            fontSize: getRespValue(22),
+            marginBottom: 10,
+            fontWeight:'600',
+          }}
+        >
+      7 Tips to Avoid Stress
+        </Text>
         <Image
           source={Article}
           style={{
@@ -16,23 +27,16 @@ const Articles = () => {
             height: "30%",
           }}
         />
+      
         <Text
           style={{
             color: "white",
-            textAlign: "center",
-            fontSize: getRespValue(12),
+            textAlign: "left",    
+            justifyContent:'center',
+            alignSelf:'center',
+             padding:20,
+            fontSize: getRespValue(14),
             marginBottom: 10,
-          }}
-        >
-      7 Tips to Avoid Stress
-        </Text>
-        <Text
-          style={{
-            color: "white",
-            textAlign: "justify",
-            padding: 15,
-            fontSize: getRespValue(12),
-            marginBottom: 2,
           }}
         >
           There are emotional and behavioral consequences of stress that can
@@ -47,19 +51,19 @@ const Articles = () => {
         <View
           style={{
             flexDirection: "row",
-            padding: 15,
-            marginTop: getRespValue(-20),
+            padding: 20,
+            marginTop: getRespValue(-50),
           }}
         >
           <Text
             style={{
               color: "white",
               textAlign: "justify",
-              fontSize: getRespValue(12),
+              fontSize: getRespValue(14),
               marginBottom: 10,
             }}
           >
-            Avoid drugs and alcohol as they can add to stress{" "}
+            Avoid drugs as they can add to stress{" "}
           </Text>
           <Link href="https://icermediation.org/journal-of-living-together/?gad_source=1&gclid=EAIaIQobChMIqpHfzq2IhgMViopoCR3laAmSEAAYASAAEgKzTvD_BwE">
             <Text
@@ -67,7 +71,7 @@ const Articles = () => {
                 color: "orange",
                 textAlign: "justify",
 
-                fontSize: getRespValue(12),
+                fontSize: getRespValue(13),
                 marginBottom: 10,
               }}
             >

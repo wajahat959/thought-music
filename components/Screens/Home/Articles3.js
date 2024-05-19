@@ -7,8 +7,19 @@ import Header from "../../global/Header/index";
 import Background from "../../global/ImageBackground/index";
 const Articles3 = () => {
   return (
-    <Header>
+    <Header title="Article">
       <Background>
+      <Text
+          style={{
+            color: "white",
+            textAlign: "center",
+            fontSize: getRespValue(22),
+            marginBottom: 10,
+            fontWeight:'600',
+          }}
+        >
+          Home Remedies for Insomnia
+        </Text>
         <Image
           source={Article}
           style={{
@@ -16,22 +27,15 @@ const Articles3 = () => {
             height: "40%",
           }}
         />
+      
         <Text
           style={{
             color: "white",
-            textAlign: "center",
-            fontSize: getRespValue(12),
-            marginBottom: 10,
-          }}
-        >
-          Home Remedies for Insomnia
-        </Text>
-        <Text
-          style={{
-            color: "white",
-            textAlign: "justify",
-            padding: 10,
-            fontSize: getRespValue(12),
+            textAlign: "left",    
+            justifyContent:'center',
+            alignSelf:'center',
+             padding:20,
+            fontSize: getRespValue(14),
             marginBottom: 10,
           }}
         >
@@ -49,20 +53,19 @@ const Articles3 = () => {
         <View
           style={{
             flexDirection: "row",
-            padding: 10,
-            marginTop: getRespValue(-20),
+            padding: 20,
+            marginTop: getRespValue(-50),
           }}
         >
           <Text
             style={{
               color: "white",
               textAlign: "justify",
-
-              fontSize: getRespValue(12),
+              fontSize: getRespValue(14),
               marginBottom: 10,
             }}
           >
-      Through meditation, exercise, and other home remedies.{" "}
+        Through meditationand home remedies.{" "}
           </Text>
           <Link href="https://www.healthline.com/health/healthy-sleep/insomnia-home-remedies#mantra-repetition">
             <Text
@@ -70,7 +73,7 @@ const Articles3 = () => {
                 color: "orange",
                 textAlign: "justify",
 
-                fontSize: getRespValue(12),
+                fontSize: getRespValue(14),
                 marginBottom: 10,
               }}
             >
