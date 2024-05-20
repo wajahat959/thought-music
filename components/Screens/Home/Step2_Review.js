@@ -2,10 +2,10 @@ import Button from "@/components/global/Button";
 import Header from "@/components/global/Header";
 import Background from "@/components/global/ImageBackground";
 import { getRespValue } from "@/design/desin";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import { useToast } from "native-base";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, BackHandler, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { renderToastError, renderToastSuccess } from "../../../hooks/useToasty";
 import { useSelfassessmentMutation } from "../../../store/api/mainApi";
@@ -13,6 +13,22 @@ import { selectUser } from "../../../store/selectors/userSelect";
 import { setAverageRating, setLogout } from "../../../store/slices/userSlice";
 
 const Step2_Review = ({ goTo }) => {
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        goTo && goTo(0); // Navigate to step 0
+      
+        return true; // Prevent default back button behavior
+      };
+
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+      );
+
+      return () => backHandler.remove();
+    }, [goTo]),
+  );
   const today = new Date();
   const dispatch = useDispatch();
   const toast = useToast();

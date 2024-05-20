@@ -1,11 +1,28 @@
 import { getRespValue } from "@/design/desin";
-import { Link } from "expo-router";
+import { Link, useFocusEffect } from "expo-router";
 import { default as React } from "react";
-import { Image, Text, View } from "react-native";
+import { BackHandler, Image, Text, View } from "react-native";
 import Article from "../../../assets/articles/articalbg2.jpg";
 import Header from "../../global/Header/index";
 import Background from "../../global/ImageBackground/index";
-const Articles3 = () => {
+const Articles3 = ({goTo}) => {
+  
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        goTo && goTo(0); // Navigate to step 0
+      
+        return true; // Prevent default back button behavior
+      };
+
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+      );
+
+      return () => backHandler.remove();
+    }, [goTo]),
+  );
   return (
     <Header title="Article">
       <Background>

@@ -1,7 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
+import { useFocusEffect } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
+  BackHandler,
   FlatList,
   Image,
   ImageBackground,
@@ -53,7 +55,7 @@ const tracks = [
   },
 ];
 
-const Step1_Audio = () => {
+const Step1_Audio = ({goTo}) => {
   const [sound, setSound] = useState(null);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -61,6 +63,7 @@ const Step1_Audio = () => {
   const [duration, setDuration] = useState(0);
   const [loading, setLoading] = useState(false);
   const [isPlaylistVisible, setIsPlaylistVisible] = useState(true);
+  
 
   useEffect(() => {
     const loadAudio = async () => {
@@ -134,6 +137,26 @@ const Step1_Audio = () => {
     setIsPlaylistVisible(false);
   };
 
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        // Do nothing if modal is visible
+        if (!isPlaylistVisible) {
+          pauseSound();
+          return true; // Prevent default back button behavior
+        }
+        
+        return false; // Allow default back button behavior
+      };
+
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () => {
+        backHandler.remove(); // Cleanup the event listener
+      };
+    }, [isPlaylistVisible]) // Dependency array to reapply effect if `isPlaylistVisible` changes
+  );
   return (
     <View style={styles.container}>
       {isPlaylistVisible && (

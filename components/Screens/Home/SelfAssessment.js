@@ -1,7 +1,9 @@
 import Header from "@/components/global/Header";
 import Background from "@/components/global/ImageBackground";
+import { useFocusEffect } from "expo-router";
 import React, { useState } from "react";
 import {
+  BackHandler,
   Modal,
   ScrollView,
   StyleSheet,
@@ -11,10 +13,27 @@ import {
 } from "react-native";
 import Button from "../../global/Button";
 
-const SelfAssessment = () => {
+const SelfAssessment = ({goTo}) => {
   const [answers, setAnswers] = useState(Array(7).fill(null));
   const [resultText, setResultText] = useState("");
   const [isPlaylistVisible, setIsPlaylistVisible] = useState(false);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        goTo && goTo(0); // Navigate to step 0
+      
+        return true; // Prevent default back button behavior
+      };
+
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+      );
+
+      return () => backHandler.remove();
+    }, [goTo]),
+  );
   const questions = [
     {
       question: "Feelings nervous, anxious or on edge",
